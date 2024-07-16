@@ -7,7 +7,7 @@ async function executeQaFunctionality(question, video_url) {
     return;
   }
 
-  const transcriptUrl = `http://127.0.0.1:5000/captions?youtube_url=${video_url}`;
+  const transcriptUrl = `https://vidsense.onrender.com/captions?youtube_url=${video_url}`;
 
   try {
     // Fetch transcript
@@ -20,7 +20,7 @@ async function executeQaFunctionality(question, video_url) {
     const transcript = data.t;
 
     // Request an answer to the question
-    const qaUrl = `http://127.0.0.1:5000/qa?transcript=${encodeURIComponent(transcript)}&question=${encodeURIComponent(question)}`;
+    const qaUrl = `https://vidsense.onrender.com/qa?transcript=${encodeURIComponent(transcript)}&question=${encodeURIComponent(question)}`;
     const qaResponse = await fetch(qaUrl);
 
     if (!qaResponse.ok) {
@@ -49,7 +49,7 @@ async function executeSummaryFunctionality(video_url) {
     return;
   }
 
-  const transcriptUrl = `http://127.0.0.1:5000/captions?youtube_url=${video_url}`;
+  const transcriptUrl = `https://vidsense.onrender.com/captions?youtube_url=${video_url}`;
 
   try {
     // Fetch transcript
@@ -62,7 +62,7 @@ async function executeSummaryFunctionality(video_url) {
     const transcript = data.t;
 
     // Request a summary of the transcript
-    const summaryUrl = `http://127.0.0.1:5000/summary?transcript=${encodeURIComponent(transcript)}`;
+    const summaryUrl = `https://vidsense.onrender.com/summary?transcript=${encodeURIComponent(transcript)}`;
     const summaryResponse = await fetch(summaryUrl);
 
     if (!summaryResponse.ok) {
