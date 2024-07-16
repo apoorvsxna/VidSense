@@ -4,13 +4,13 @@ from urllib.parse import urlparse, parse_qs
 from flask_cors import CORS
 import requests
 import os
-from dotenv import load_dotenv  # Import dotenv to load .env file
+from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})  # CORS configuration
 
 # Get the API key from environment variables
 API_KEY = os.getenv('GEMINI_API_KEY')
@@ -75,6 +75,13 @@ def answer_question():
         return jsonify({"answer": answer})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
