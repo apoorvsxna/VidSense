@@ -18,13 +18,15 @@
         </div>
         <div class="input-container">
             <input type="text" placeholder="Ask a question..." class="input-box" id="questionInput">
-            <button class="action-button" id="answerButton">Answer</button>
-            <button class="action-button" id="summarizeButton">Summarize</button>
+            <div class="button-container">
+                <button class="action-button" id="answerButton">Answer</button>
+                <button class="action-button" id="summarizeButton">Summarize</button>
+            </div>
         </div>
         <div class="output-container">
+            <div class="loader" id="loader"></div>
             <p id="output"></p>
         </div>
-
         <!-- Include your JavaScript file -->
         <script src="popup.js"></script>
     </div>
