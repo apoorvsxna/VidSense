@@ -1,26 +1,17 @@
-// Function to execute QA functionality
+// Function to execute qa functionality
 async function executeQaFunctionality(question, video_url) {
-  // Extract video ID from the video URL
-  const videoId = new URL(video_url).searchParams.get('v');
-  if (!videoId) {
-    console.error('Invalid YouTube URL');
-    return;
-  }
-
-  const transcriptUrl = `https://vidsense.onrender.com/captions?youtube_url=${video_url}`;
+  const url = 'https://vidsense.onrender.com/captions?youtube_url=' + video_url;
 
   try {
-    // Fetch transcript
-    const response = await fetch(transcriptUrl);
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
     const data = await response.json();
-    const transcript = data.t;
+    let transcript = data.t;
 
-    // Request an answer to the question
-    const qaUrl = `https://vidsense.onrender.com/qa?transcript=${encodeURIComponent(transcript)}&question=${encodeURIComponent(question)}`;
+    const qaUrl = 'https://vidsense.onrender.com/qa?transcript=' + encodeURIComponent(transcript) + '&question=' + encodeURIComponent(question);
     const qaResponse = await fetch(qaUrl);
 
     if (!qaResponse.ok) {
@@ -35,34 +26,24 @@ async function executeQaFunctionality(question, video_url) {
       chrome.runtime.sendMessage({ output: `${qaResult.answer}` });
     }
   } catch (error) {
-    // Log any errors that occurred during the fetch or query
     console.error('Error:', error);
   }
 }
 
 // Function to execute summary functionality
 async function executeSummaryFunctionality(video_url) {
-  // Extract video ID from the video URL
-  const videoId = new URL(video_url).searchParams.get('v');
-  if (!videoId) {
-    console.error('Invalid YouTube URL');
-    return;
-  }
-
-  const transcriptUrl = `https://vidsense.onrender.com/captions?youtube_url=${video_url}`;
+  const url = 'https://vidsense.onrender.com/captions?youtube_url=' + video_url;
 
   try {
-    // Fetch transcript
-    const response = await fetch(transcriptUrl);
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
     const data = await response.json();
-    const transcript = data.t;
+    let transcript = data.t;
 
-    // Request a summary of the transcript
-    const summaryUrl = `https://vidsense.onrender.com/summary?transcript=${encodeURIComponent(transcript)}`;
+    const summaryUrl = 'https://vidsense.onrender.com/summary?transcript=' + encodeURIComponent(transcript);
     const summaryResponse = await fetch(summaryUrl);
 
     if (!summaryResponse.ok) {
@@ -77,7 +58,6 @@ async function executeSummaryFunctionality(video_url) {
       chrome.runtime.sendMessage({ output: summaryResult.summary });
     }
   } catch (error) {
-    // Log any errors that occurred during the fetch or query
     console.error('Error:', error);
   }
 }
