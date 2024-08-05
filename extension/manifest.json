@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "VidSense",
-  "version": "1.0",
-  "description": "AI-powered answers a click away. An extension to get answers to your questions, or get a summary, based on the YouTube video in the current tab.",
+  "version": "1.0.2",
+  "description": "AI-powered answers a click away. An extension for quick answers or summaries based on the YouTube video in your current tab.",
   "icons": {
     "48": "eye-black.png",
     "128": "eye-black.png"
@@ -16,7 +16,6 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "storage",
     "activeTab",
     "contextMenus"
   ],
